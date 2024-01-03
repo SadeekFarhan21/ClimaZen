@@ -21,37 +21,37 @@ const days = [
     "Saturday",
 ];
 
-// display the day
+// Display the day
 const day = new Date();
 const dayName = days[day.getDay()];
 dayEl.textContent = dayName;
 
-// display date
+// Display date
 let month = day.toLocaleString("default", { month: "long" });
 let date = day.getDate();
 let year = day.getFullYear();
-
-console.log();
 dateEl.textContent = date + " " + month + " " + year;
 
-// add event
+// Add event listener for the search button
 btnEl.addEventListener("click", (e) => {
     e.preventDefault();
 
-    // check empty value
+    // Check if the input value is not empty
     if (inputEl.value !== "") {
-        const Search = inputEl.value;
+        const searchQuery = inputEl.value;
         inputEl.value = "";
-        findLocation(Search);
+        findLocation(searchQuery);
     } else {
         console.log("Please Enter City or Country Name");
     }
 });
 
+// Function to fetch weather information for a location
 async function findLocation(name) {
     iconsContainer.innerHTML = "";
     dayInfoEl.innerHTML = "";
     listContentEl.innerHTML = "";
+
     try {
         const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${API}`;
         const data = await fetch(API_URL);
@@ -59,17 +59,17 @@ async function findLocation(name) {
         console.log(result);
 
         if (result.cod !== "404") {
-            // display image content
-            const ImageContent = displayImageContent(result);
+            // Display image content
+            const imageContent = displayImageContent(result);
 
-            // display right side content
+            // Display right side content
             const rightSide = rightSideContent(result);
 
-            // forecast function
+            // Display forecast
             displayForeCast(result.coord.lat, result.coord.lon);
 
             setTimeout(() => {
-                iconsContainer.insertAdjacentHTML("afterbegin", ImageContent);
+                iconsContainer.insertAdjacentHTML("afterbegin", imageContent);
                 iconsContainer.classList.add("fadeIn");
                 dayInfoEl.insertAdjacentHTML("afterbegin", rightSide);
             }, 1500);
@@ -78,34 +78,37 @@ async function findLocation(name) {
       <h3 class="cloudtxt">${result.message}</h3>`;
             iconsContainer.insertAdjacentHTML("afterbegin", message);
         }
-    } catch (error) { }
+    } catch (error) {
+        console.error("Error fetching weather data:", error);
+    }
 }
 
+// Function to display forecast
 async function displayForeCast(lat, long) {
     const ForeCast_API = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&appid=${API}`;
     const data = await fetch(ForeCast_API);
     const result = await data.json();
-    // filter the forecast
-    const uniqeForeCastDays = [];
+
+    // Filter the forecast to get unique days
+    const uniqueForeCastDays = {};
     const daysForecast = result.list.filter((forecast) => {
         const forecastDate = new Date(forecast.dt_txt).getDate();
-        if (!uniqeForeCastDays.includes(forecastDate)) {
-            return uniqeForeCastDays.push(forecastDate);
+        if (!uniqueForeCastDays[forecastDate]) {
+            uniqueForeCastDays[forecastDate] = true;
+            return true;
         }
+        return false;
     });
-    console.log(daysForecast);
 
-    daysForecast.forEach((content, indx) => {
-        if (indx <= 3) {
-            listContentEl.insertAdjacentHTML("afterbegin", forecast(content));
-        }
+    // Display the forecast
+    daysForecast.slice(0, 4).forEach((content) => {
+        listContentEl.insertAdjacentHTML("beforeend", forecast(content));
     });
 }
 
-
-// display image content and temp
+// Function to display image content and temperature
 function displayImageContent(data) {
-    const celsiusTemp = Math.round(data.main.temp - 275.15);
+    const celsiusTemp = Math.round(data.main.temp - 273.15);
     const fahrenheitTemp = Math.round((celsiusTemp * 9 / 5) + 32);
 
     return `<img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@4x.png" alt="" />
@@ -113,11 +116,11 @@ function displayImageContent(data) {
       <h3 class="cloudtxt">${data.weather[0].description}</h3>`;
 }
 
-// display the right side content
+// Function to display the right side content
 function rightSideContent(result) {
-    const celsiusTemp = Math.round(result.main.temp - 275.15);
+    const celsiusTemp = Math.round(result.main.temp - 273.15);
     const fahrenheitTemp = Math.round((celsiusTemp * 9 / 5) + 32);
-    const windSpeedMph = Math.round(result.wind.speed * 2.23694 * 0.621371); // Convert km/h to mph
+    const windSpeedMph = Math.round(result.wind.speed * 2.23694); // Convert m/s to mph
 
     return `<div class="content">
             <p class="title">NAME</p>
@@ -137,9 +140,9 @@ function rightSideContent(result) {
           </div>`;
 }
 
-// forecast html element data
+// Function to generate forecast HTML element
 function forecast(frContent) {
-    const celsiusTemp = Math.round(frContent.main.temp - 275.15);
+    const celsiusTemp = Math.round(frContent.main.temp - 273.15);
     const fahrenheitTemp = Math.round((celsiusTemp * 9 / 5) + 32);
 
     const day = new Date(frContent.dt_txt);
