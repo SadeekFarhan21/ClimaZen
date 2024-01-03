@@ -1,11 +1,14 @@
+/* Importing Google Fonts for Poppins and Ruda */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Ruda:wght@400;600;700&display=swap");
 
+/* Global Styles */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Body Styles */
 body {
     background-color: #37474f;
     height: 100vh;
@@ -15,6 +18,7 @@ body {
     font-family: "poppins", sans-serif;
 }
 
+/* Container Styles */
 .container {
     max-width: 800px;
     width: 100%;
@@ -24,12 +28,14 @@ body {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
 }
 
+/* Wrapper Styles */
 .wrapper {
     display: grid;
     grid-template-columns: 3fr 4fr;
     grid-gap: 1rem;
 }
 
+/* Image Section Styles */
 .img_section {
     border-radius: 25px;
     background-image: url("../img/bg.jpg");
@@ -51,6 +57,7 @@ body {
     border-radius: 25px;
 }
 
+/* Default Information Styles */
 .default_info {
     padding: 1.5rem;
     text-align: center;
@@ -76,7 +83,7 @@ body {
     font-weight: 800;
 }
 
-/* content section */
+/* Content Section Styles */
 .content_section {
     padding: 1.5rem;
 }
@@ -114,6 +121,7 @@ body {
     cursor: pointer;
 }
 
+/* Day Information Styles */
 .day_info .content {
     display: flex;
     justify-content: space-between;
@@ -124,6 +132,7 @@ body {
     font-weight: 600;
 }
 
+/* List Content Styles */
 .list_content ul {
     display: flex;
     justify-content: space-between;
@@ -155,6 +164,7 @@ body {
     object-fit: cover;
 }
 
+/* Icons Styles */
 .icons {
     opacity: 0;
 }
@@ -164,6 +174,7 @@ body {
     animation-delay: 0.7s;
 }
 
+/* FadeIn Animation */
 @keyframes fadeIn {
     to {
         transition: all 0.5s ease-in;
