@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags for character set and viewport settings -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+    
+    <!-- Title of the document -->
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Main container -->
+    <div class="container">
+        <!-- Wrapper for content -->
+        <div class="wrapper">
+            <!-- Image section with default weather information -->
+            <div class="img_section">
+                <!-- Default information for the day -->
+                <div class="default_info">
+                    <h2 class="default_day">Sunday</h2>
+                    <span class="default_date">3 January 2024 </span>
+                    <!-- Icons and weather details -->
+                    <div class="icons">
+                        <img src="https://openweathermap.org/img/wn/10d@4x.png" alt="" />
+                        <h2 class="weather_temp">22°C</h2>
+                        <h3 class="cloudtxt">Overcast Clouds</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content section with search form, day info, and forecast -->
+            <div class="content_section">
+                <!-- Search form -->
+                <form>
+                    <input type="text" placeholder="Search Location" class="input_field" />
+                    <button type="submit" class="btn_search">Search</button>
+                </form>
+
+                <!-- Day information -->
+                <div class="day_info">
+                    <div class="content">
+                        <p class="title">NAME</p>
+                        <span class="value">Columbus</span>
+                    </div>
+                    <div class="content">
+                        <p class="title">TEMP</p>
+                        <span class="value">97°F</span>
+                    </div>
+                    <div class="content">
+                        <p class="title">HUMIDITY</p>
+                        <span class="value">2%</span>
+                    </div>
+                    <div class="content">
+                        <p class="title">WIND SPEED</p>
+                        <span class="value">2.9 Mph</span>
+                    </div>
+                </div>
+
+                <!-- Forecast list content -->
+                <div class="list_content">
+                    <ul>
+                        <!-- Forecast items -->
+                        <li>
+                            <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                            <span>Sat</span>
+                            <span class="day_temp">92°F</span>
+                        </li>
+                        <li>
+                            <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                            <span>Sat</span>
+                            <span class="day_temp">92°F</span>
+                        </li>
+                        <li>
+                            <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                            <span>Sat</span>
+                            <span class="day_temp">92°F</span>
+                        </li>
+                        <li>
+                            <img src="https://openweathermap.org/img/wn/10d@2x.png" />
+                            <span>Sat</span>
+                            <span class="day_temp">92°F</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script tag to include external JavaScript file -->
+    <script src="script.js" defer></script>
+</body>
+
+</html>
